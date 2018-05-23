@@ -43,9 +43,9 @@ class SignInFragment : DaggerFragment() {
 
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == Activity.RESULT_OK) {
-                Toast.makeText(context, "Sign In was Successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "SignIn was Successfully", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(context, "Sign In was Failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "SignIn was Failed", Toast.LENGTH_SHORT).show()
             }
         }
     }
