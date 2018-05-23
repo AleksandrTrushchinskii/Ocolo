@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Ocolo</string>
+
+    <string name="sign_in">Sign in</string>
+
+    <string name="toast_internet_not_available">Internet not available. Please connect and try again</string>
 </resources>

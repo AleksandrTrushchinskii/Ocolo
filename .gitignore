@@ -5,4 +5,4 @@ build
 gradle
 app/libs
 local.properties
-
+app/google-services.json
