@@ -16,9 +16,11 @@ import ru.aleksandrtrushchinskii.ocolo.common.util.inflate
 
 
 class SignInFragment : DaggerFragment() {
+
     companion object {
         private const val RC_SIGN_IN = 100
     }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return container?.inflate(R.layout.sign_in_fragment)
@@ -51,4 +53,5 @@ class SignInFragment : DaggerFragment() {
             }
         }
     }
+
 }

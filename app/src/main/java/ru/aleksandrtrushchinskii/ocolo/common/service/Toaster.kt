@@ -6,8 +6,15 @@ import android.widget.Toast
 import ru.aleksandrtrushchinskii.ocolo.R
 import javax.inject.Inject
 
+
 class Toaster @Inject constructor(private val context: Context) {
+
     var toast: Toast? = null
+
+
+    fun internetNotAvailable() {
+        showToast(R.string.toast_internet_not_available)
+    }
 
     private fun showToast(@StringRes stringId: Int) {
         if (toast != null) toast = null
@@ -17,7 +24,4 @@ class Toaster @Inject constructor(private val context: Context) {
         toast?.show()
     }
 
-    fun internetNotAvailable() {
-        showToast(R.string.toast_internet_not_available)
-    }
 }

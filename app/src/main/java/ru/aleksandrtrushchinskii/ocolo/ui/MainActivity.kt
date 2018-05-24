@@ -11,8 +11,10 @@ import javax.inject.Inject
 
 
 class MainActivity : DaggerAppCompatActivity() {
+
     @Inject
     lateinit var auth: Authentication
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +36,9 @@ class MainActivity : DaggerAppCompatActivity() {
     fun finishFragment(fragment: Fragment) {
         when (fragment::class) {
             SignInFragment::class -> startFragment(MainFragment())
-            MainFragment::class -> startFragment(SignInFragment())
+            MainFragment::class -> if (!auth.isAuth) startFragment(SignInFragment())
             else -> println(fragment)
         }
     }
+
 }

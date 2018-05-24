@@ -7,10 +7,12 @@ import javax.inject.Inject
 
 
 class ViewModelFactory @Inject constructor() : ViewModelProvider.Factory {
+
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>) = when (modelClass) {
         MainViewModel::class.java -> MainViewModel() as T
         else -> throw RuntimeException("Unknown view model: $modelClass")
 
     }
+
 }

@@ -11,7 +11,9 @@ import ru.aleksandrtrushchinskii.ocolo.R
 import ru.aleksandrtrushchinskii.ocolo.common.util.finish
 import ru.aleksandrtrushchinskii.ocolo.common.util.inflate
 
+
 class MainFragment : DaggerFragment() {
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return container?.inflate(R.layout.main_fragment)
     }
@@ -25,4 +27,5 @@ class MainFragment : DaggerFragment() {
             }
         }
     }
+
 }

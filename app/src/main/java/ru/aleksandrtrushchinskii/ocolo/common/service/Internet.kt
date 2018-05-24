@@ -4,13 +4,14 @@ import android.content.Context
 import android.net.ConnectivityManager
 import javax.inject.Inject
 
-class Internet @Inject constructor(context: Context,
-                                   private val toaster: Toaster) {
 
-    private val networkInfo =  (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
+class Internet @Inject constructor(context: Context, private val toaster: Toaster) {
+
+    private val networkInfo = (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
 
     val available: Boolean
         get() = networkInfo != null && networkInfo.isConnectedOrConnecting
+
 
     fun ifAvailable(code: () -> Unit) {
         if (available) {
@@ -19,4 +20,5 @@ class Internet @Inject constructor(context: Context,
             toaster.internetNotAvailable()
         }
     }
+
 }

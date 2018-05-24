@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import ru.aleksandrtrushchinskii.ocolo.ui.MainActivity
 
+
 fun ViewGroup.inflate(@LayoutRes layoutId: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(this.context).inflate(layoutId, this, attachToRoot)
 }
@@ -15,9 +16,9 @@ fun ViewGroup.inflate(@LayoutRes layoutId: Int, attachToRoot: Boolean = false): 
 //    return DataBindingUtil.inflate(LayoutInflater.from(this.context), layoutId, this, attachToRoot)
 //}
 
-val Fragment.mainActivity: MainActivity
-    get() = this.activity as MainActivity
+//val Fragment.mainActivity: MainActivity
+//    get() = this.activity as MainActivity
 
 fun Fragment.finish() {
-    mainActivity.finishFragment(this)
+    (this.activity as MainActivity).finishFragment(this)
 }
