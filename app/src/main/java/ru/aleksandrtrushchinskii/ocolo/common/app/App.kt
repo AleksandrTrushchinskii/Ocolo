@@ -7,9 +7,12 @@ import dagger.android.HasActivityInjector
 import ru.aleksandrtrushchinskii.ocolo.di.component.DaggerAppComponent
 import javax.inject.Inject
 
+
 class App : Application(), HasActivityInjector {
+
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+
 
     override fun onCreate() {
         super.onCreate()
@@ -22,4 +25,5 @@ class App : Application(), HasActivityInjector {
     }
 
     override fun activityInjector() = dispatchingAndroidInjector
+
 }
