@@ -4,6 +4,6 @@ import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject
 
 class Authentication @Inject constructor(private val firebaseAuth: FirebaseAuth) {
-    val signIn: Boolean
+    val isAuth: Boolean
         get() = firebaseAuth.currentUser != null
 }

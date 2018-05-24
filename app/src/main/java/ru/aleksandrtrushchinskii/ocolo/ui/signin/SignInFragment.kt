@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.firebase.ui.auth.AuthUI
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_sign_in.*
+import kotlinx.android.synthetic.main.sign_in_fragment.*
 import ru.aleksandrtrushchinskii.ocolo.R
+import ru.aleksandrtrushchinskii.ocolo.common.util.finish
 import ru.aleksandrtrushchinskii.ocolo.common.util.inflate
 
 
@@ -20,7 +21,7 @@ class SignInFragment : DaggerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return container?.inflate(R.layout.fragment_sign_in)
+        return container?.inflate(R.layout.sign_in_fragment)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,6 +45,7 @@ class SignInFragment : DaggerFragment() {
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == Activity.RESULT_OK) {
                 Toast.makeText(context, "SignIn was Successfully", Toast.LENGTH_SHORT).show()
+                finish()
             } else {
                 Toast.makeText(context, "SignIn was Failed", Toast.LENGTH_SHORT).show()
             }

@@ -5,6 +5,7 @@ import dagger.android.support.DaggerAppCompatActivity
 import ru.aleksandrtrushchinskii.ocolo.R
 import android.support.v4.app.Fragment
 import ru.aleksandrtrushchinskii.ocolo.common.service.Authentication
+import ru.aleksandrtrushchinskii.ocolo.ui.main.MainFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.signin.SignInFragment
 import javax.inject.Inject
 
@@ -15,16 +16,26 @@ class MainActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.main_activity)
 
-        if (!auth.signIn){
+        if (auth.isAuth) {
             startFragment(SignInFragment())
+        } else {
+            startFragment(MainFragment())
         }
     }
 
-    private fun startFragment(fragment: Fragment){
+    private fun startFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commitNow()
+    }
+
+    fun finishFragment(fragment: Fragment) {
+        when (fragment::class) {
+            SignInFragment::class -> startFragment(MainFragment())
+            MainFragment::class -> startFragment(SignInFragment())
+            else -> println(fragment)
+        }
     }
 }
