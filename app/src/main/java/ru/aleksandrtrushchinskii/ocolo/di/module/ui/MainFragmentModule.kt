@@ -1,4 +1,4 @@
-package ru.aleksandrtrushchinskii.ocolo.di.module
+package ru.aleksandrtrushchinskii.ocolo.di.module.ui
 
 import dagger.Module
 

@@ -7,7 +7,7 @@ import ru.aleksandrtrushchinskii.ocolo.di.scope.ActivityScope
 import ru.aleksandrtrushchinskii.ocolo.ui.MainActivity
 
 
-@Module(includes = [AndroidSupportInjectionModule::class, FirebaseModule::class])
+@Module(includes = [AndroidSupportInjectionModule::class, ModelModule::class])
 interface AppModule {
 
     @ActivityScope

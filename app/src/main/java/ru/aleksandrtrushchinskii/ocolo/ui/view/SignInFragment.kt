@@ -1,4 +1,4 @@
-package ru.aleksandrtrushchinskii.ocolo.ui.signin
+package ru.aleksandrtrushchinskii.ocolo.ui.view
 
 import android.app.Activity
 import android.content.Intent
@@ -11,8 +11,10 @@ import com.firebase.ui.auth.AuthUI
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.sign_in_fragment.*
 import ru.aleksandrtrushchinskii.ocolo.R
+import ru.aleksandrtrushchinskii.ocolo.common.service.Internet
 import ru.aleksandrtrushchinskii.ocolo.common.util.finish
 import ru.aleksandrtrushchinskii.ocolo.common.util.inflate
+import javax.inject.Inject
 
 
 class SignInFragment : DaggerFragment() {
@@ -20,6 +22,10 @@ class SignInFragment : DaggerFragment() {
     companion object {
         private const val RC_SIGN_IN = 100
     }
+
+
+    @Inject
+    lateinit var internet: Internet
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,7 +55,9 @@ class SignInFragment : DaggerFragment() {
                 Toast.makeText(context, "SignIn was Successfully", Toast.LENGTH_SHORT).show()
                 finish()
             } else {
-                Toast.makeText(context, "SignIn was Failed", Toast.LENGTH_SHORT).show()
+                internet.ifAvailable {
+                    Toast.makeText(context, "SignIn was Failed", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package ru.aleksandrtrushchinskii.ocolo.ui.main
+package ru.aleksandrtrushchinskii.ocolo.ui.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
