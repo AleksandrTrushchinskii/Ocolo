@@ -1,8 +1,18 @@
 <resources>
     <string name="app_name">Ocolo</string>
 
+    <string name="toast_internet_not_available">Internet not available. Please connect and try again</string>
+
     <string name="sign_in">Sign In</string>
     <string name="sign_out">Sign Out</string>
 
-    <string name="toast_internet_not_available">Internet not available. Please connect and try again</string>
+    <string name="profile">Profile</string>
+
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="photo">Photo</string>
+
+    <string name="create">Create</string>
+    <string name="update">Update</string>
+    <string name="saved">Saved</string>
 </resources>

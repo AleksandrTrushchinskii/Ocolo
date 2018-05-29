@@ -6,6 +6,9 @@ import android.os.Bundle
 import dagger.android.support.DaggerAppCompatActivity
 import ru.aleksandrtrushchinskii.ocolo.R
 import android.support.v4.app.Fragment
+import android.view.Menu
+import android.view.MenuItem
+import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.main_activity.*
 import ru.aleksandrtrushchinskii.ocolo.common.util.invisible
 import ru.aleksandrtrushchinskii.ocolo.common.util.visible
@@ -16,6 +19,7 @@ import ru.aleksandrtrushchinskii.ocolo.ui.view.ProfileFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.view.SignInFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.viewmodel.ProfileViewModel
 import ru.aleksandrtrushchinskii.ocolo.ui.tool.LoadingState
+import ru.aleksandrtrushchinskii.ocolo.ui.tool.NEW_USER
 import javax.inject.Inject
 
 
@@ -31,6 +35,7 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+        setSupportActionBar(toolbar)
 
         profileVM = ViewModelProviders.of(this, factory).get(ProfileViewModel::class.java)
         mainVM = ViewModelProviders.of(this).get(MainViewModel::class.java)
@@ -45,17 +50,30 @@ class MainActivity : DaggerAppCompatActivity() {
             }
         })
 
-        if (!profileVM.isAuth) {
-            startFragment(SignInFragment())
-        } else {
+        if (profileVM.isAuth) {
             checkProfileAndRunFragment()
+        } else {
+            startFragment(SignInFragment())
         }
     }
 
-    private fun startFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commitNow()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.action_profile -> {
+            startFragment(ProfileFragment())
+            true
+        }
+        R.id.action_sign_out -> {
+            AuthUI.getInstance().signOut(this).addOnCompleteListener {
+                startFragment(SignInFragment())
+            }
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
     }
 
     fun finishFragment(fragment: Fragment) {
@@ -66,12 +84,22 @@ class MainActivity : DaggerAppCompatActivity() {
         }
     }
 
+    private fun startFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commitNow()
+    }
+
     private fun checkProfileAndRunFragment() {
-        profileVM.exist({
-            startFragment(MainFragment())
-        }, {
-            startFragment(ProfileFragment())
-        })
+        profileVM.exist {
+            if (it) {
+                startFragment(MainFragment())
+            } else {
+                val profileFragment = ProfileFragment()
+                profileFragment.arguments = Bundle().apply { putBoolean(NEW_USER, true) }
+                startFragment(profileFragment)
+            }
+        }
     }
 
 }

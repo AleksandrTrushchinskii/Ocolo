@@ -16,6 +16,10 @@ class Toaster @Inject constructor(private val context: Context) {
         showToast(R.string.toast_internet_not_available)
     }
 
+    fun saved() {
+        showToast(R.string.saved)
+    }
+
     private fun showToast(@StringRes stringId: Int) {
         if (toast != null) toast = null
 
