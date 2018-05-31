@@ -18,7 +18,9 @@ class UserRepository @Inject constructor(private val db: UserDatabase,
     fun exist(id: String, success: (isExist: Boolean) -> Unit) {
         db.exist(id).subscribe({
             success(it)
-        }, { exceptionHandler.handle(it) })
+        }, {
+            exceptionHandler.handle(it)
+        })
     }
 
     fun save(user: User, complete: () -> Unit = {}) {

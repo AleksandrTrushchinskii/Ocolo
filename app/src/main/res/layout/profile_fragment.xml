@@ -18,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <TextView
             android:id="@+id/profile_name_label"
             android:layout_width="wrap_content"
@@ -63,7 +62,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
             android:enabled='@{vm.user.name != ""}'
-            android:onClick="@{(v) -> vm.save(v)}"
+            android:onClick="@{() -> vm.save()}"
             android:text="@{isUserNew ? @string/create : @string/update}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

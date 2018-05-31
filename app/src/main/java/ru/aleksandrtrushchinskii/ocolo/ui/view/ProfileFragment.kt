@@ -50,5 +50,4 @@ class ProfileFragment : DaggerFragment() {
         }
     }
 
-
 }

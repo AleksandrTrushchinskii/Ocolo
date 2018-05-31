@@ -17,7 +17,15 @@ class ProfileViewModel constructor(private val firebaseAuth: FirebaseAuth,
     val isAuth: Boolean
         get() = firebaseAuth.currentUser != null
 
-    val user by lazy { MutableLiveData<User>() }
+    val user = MutableLiveData<User>().apply {
+        LoadingState.start()
+        if(isAuth) {
+            userRepository.get(firebaseAuth.currentUser!!.uid){
+                value = it
+            }
+        }
+        LoadingState.stope()
+    }
 
 
     fun exist(success: (isExist: Boolean) -> Unit) {
@@ -39,7 +47,7 @@ class ProfileViewModel constructor(private val firebaseAuth: FirebaseAuth,
         }
     }
 
-    fun save(view: View) {
+    fun save() {
         userRepository.save(user.value!!) {
             toaster.saved()
         }

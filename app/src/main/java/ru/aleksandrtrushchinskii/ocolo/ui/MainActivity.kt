@@ -43,10 +43,10 @@ class MainActivity : DaggerAppCompatActivity() {
         LoadingState.active.observe(this, Observer {
             if (it!!) {
                 fragment_container.invisible()
-                progress_bar.visible()
+                progressBar.visible()
             } else {
                 fragment_container.visible()
-                progress_bar.invisible()
+                progressBar.invisible()
             }
         })
 
