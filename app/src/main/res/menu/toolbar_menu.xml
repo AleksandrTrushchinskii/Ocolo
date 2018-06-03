@@ -3,6 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_main"
+        android:icon="@mipmap/ic_view_list"
+        android:title="@string/main"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_create_meetup"
+        android:icon="@mipmap/ic_plus"
+        android:title="@string/create_meetup"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/action_profile"
         android:icon="@mipmap/ic_account"
         android:title="@string/profile"

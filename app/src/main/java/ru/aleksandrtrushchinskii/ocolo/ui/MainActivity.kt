@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.main_activity.*
 import ru.aleksandrtrushchinskii.ocolo.common.service.Authentication
 import ru.aleksandrtrushchinskii.ocolo.common.util.invisible
 import ru.aleksandrtrushchinskii.ocolo.common.util.visible
+import ru.aleksandrtrushchinskii.ocolo.ui.cteatemeetup.CreateMeetupFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.main.MainFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.profile.ProfileFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.signin.SignInFragment
@@ -24,6 +25,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var auth: Authentication
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,18 +49,18 @@ class MainActivity : DaggerAppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-        R.id.action_profile -> {
-            startFragment(ProfileFragment())
-            true
-        }
-        R.id.action_sign_out -> {
-            AuthUI.getInstance().signOut(this).addOnCompleteListener {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_main -> startFragment(MainFragment())
+            R.id.action_create_meetup -> startFragment(CreateMeetupFragment())
+            R.id.action_profile -> startFragment(ProfileFragment())
+            R.id.action_sign_out -> AuthUI.getInstance().signOut(this).addOnCompleteListener {
                 startFragment(SignInFragment())
             }
-            true
+            else -> super.onOptionsItemSelected(item)
         }
-        else -> super.onOptionsItemSelected(item)
+
+        return true
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
