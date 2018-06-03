@@ -10,7 +10,7 @@
 
         <variable
             name="vm"
-            type="ru.aleksandrtrushchinskii.ocolo.ui.viewmodel.ProfileViewModel" />
+            type="ru.aleksandrtrushchinskii.ocolo.ui.profile.ProfileViewModel" />
 
     </data>
 
@@ -54,6 +54,7 @@
             app:layout_constraintTop_toBottomOf="@+id/profile_name" />
 
         <Button
+            android:id="@+id/updateUserButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -61,8 +62,6 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
-            android:enabled='@{vm.user.name != ""}'
-            android:onClick="@{() -> vm.save()}"
             android:text="@{isUserNew ? @string/create : @string/update}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

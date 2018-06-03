@@ -1,4 +1,4 @@
-package ru.aleksandrtrushchinskii.ocolo.ui.view
+package ru.aleksandrtrushchinskii.ocolo.ui.signin
 
 import android.app.Activity
 import android.content.Intent

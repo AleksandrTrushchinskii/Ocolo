@@ -12,17 +12,18 @@ import java.util.*
 
 @Entity(tableName = User.TABLE_NAME)
 @TypeConverters(UserConverter::class)
-data class User(@PrimaryKey
-                @get:Exclude
-                var id: String = "",
+data class User(
+        @PrimaryKey @get:Exclude var
+        id: String = "",
 
-                var name: String = "",
+        var name: String = "",
+        var email: String = "",
+        var photo: String = "",
 
-                var photo: String = "",
-
-                @ColumnInfo(name = "created_date")
-                @ServerTimestamp
-                var createdDate: Date? = null) {
+        @ColumnInfo(name = "created_date")
+        @ServerTimestamp
+        var createdDate: Date? = null
+) {
 
     companion object {
         val EMPTY = User()

@@ -1,4 +1,4 @@
-package ru.aleksandrtrushchinskii.ocolo.ui.viewmodel
+package ru.aleksandrtrushchinskii.ocolo.ui.main
 
 import android.arch.lifecycle.ViewModel
 
