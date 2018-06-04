@@ -10,9 +10,9 @@ import kotlinx.android.synthetic.main.profile_fragment.*
 import ru.aleksandrtrushchinskii.ocolo.R
 import ru.aleksandrtrushchinskii.ocolo.common.util.finish
 import ru.aleksandrtrushchinskii.ocolo.common.util.inflateBinding
-import ru.aleksandrtrushchinskii.ocolo.ui.tool.ViewModelFactory
+import ru.aleksandrtrushchinskii.ocolo.ui.ViewModelFactory
 import ru.aleksandrtrushchinskii.ocolo.databinding.ProfileFragmentBinding
-import ru.aleksandrtrushchinskii.ocolo.ui.tool.NEW_USER
+import ru.aleksandrtrushchinskii.ocolo.common.NEW_USER
 import javax.inject.Inject
 
 

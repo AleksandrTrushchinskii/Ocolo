@@ -10,14 +10,14 @@ import android.view.MenuItem
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.main_activity.*
 import ru.aleksandrtrushchinskii.ocolo.common.service.Authentication
-import ru.aleksandrtrushchinskii.ocolo.common.util.invisible
-import ru.aleksandrtrushchinskii.ocolo.common.util.visible
 import ru.aleksandrtrushchinskii.ocolo.ui.cteatemeetup.CreateMeetupFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.main.MainFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.profile.ProfileFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.signin.SignInFragment
-import ru.aleksandrtrushchinskii.ocolo.ui.tool.LoadingState
-import ru.aleksandrtrushchinskii.ocolo.ui.tool.NEW_USER
+import ru.aleksandrtrushchinskii.ocolo.common.service.LoadingState
+import ru.aleksandrtrushchinskii.ocolo.common.NEW_USER
+import ru.aleksandrtrushchinskii.ocolo.common.util.invisible
+import ru.aleksandrtrushchinskii.ocolo.common.util.visible
 import javax.inject.Inject
 
 

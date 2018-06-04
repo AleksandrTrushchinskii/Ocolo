@@ -1,4 +1,4 @@
-package ru.aleksandrtrushchinskii.ocolo.ui.tool
+package ru.aleksandrtrushchinskii.ocolo.common.service
 
 import android.arch.lifecycle.MutableLiveData
 
@@ -14,7 +14,7 @@ object LoadingState {
         active.value = true
     }
 
-    fun stope() {
+    fun stop() {
         active.value = false
     }
 }

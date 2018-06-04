@@ -1,12 +1,12 @@
-package ru.aleksandrtrushchinskii.ocolo.di.module
+package ru.aleksandrtrushchinskii.ocolo.common.di.module
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import ru.aleksandrtrushchinskii.ocolo.di.module.ui.CreateMeetupModule
-import ru.aleksandrtrushchinskii.ocolo.di.module.ui.MainFragmentModule
-import ru.aleksandrtrushchinskii.ocolo.di.module.ui.ProfileModule
-import ru.aleksandrtrushchinskii.ocolo.di.module.ui.SignInModule
-import ru.aleksandrtrushchinskii.ocolo.di.scope.FragmentScope
+import ru.aleksandrtrushchinskii.ocolo.common.di.module.ui.CreateMeetupModule
+import ru.aleksandrtrushchinskii.ocolo.common.di.module.ui.MainFragmentModule
+import ru.aleksandrtrushchinskii.ocolo.common.di.module.ui.ProfileModule
+import ru.aleksandrtrushchinskii.ocolo.common.di.module.ui.SignInModule
+import ru.aleksandrtrushchinskii.ocolo.common.di.scope.FragmentScope
 import ru.aleksandrtrushchinskii.ocolo.ui.cteatemeetup.CreateMeetupFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.main.MainFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.profile.ProfileFragment

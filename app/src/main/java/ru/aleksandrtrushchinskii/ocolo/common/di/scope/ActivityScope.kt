@@ -1,4 +1,4 @@
-package ru.aleksandrtrushchinskii.ocolo.di.scope
+package ru.aleksandrtrushchinskii.ocolo.common.di.scope
 
 import javax.inject.Scope
 import kotlin.annotation.AnnotationRetention.RUNTIME

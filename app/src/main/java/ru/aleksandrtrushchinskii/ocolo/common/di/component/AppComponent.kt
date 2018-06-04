@@ -1,10 +1,10 @@
-package ru.aleksandrtrushchinskii.ocolo.di.component
+package ru.aleksandrtrushchinskii.ocolo.common.di.component
 
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.aleksandrtrushchinskii.ocolo.common.app.App
-import ru.aleksandrtrushchinskii.ocolo.di.module.AppModule
+import ru.aleksandrtrushchinskii.ocolo.common.di.module.AppModule
 import javax.inject.Singleton
 
 

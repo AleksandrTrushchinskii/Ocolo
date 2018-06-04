@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.Application
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
-import ru.aleksandrtrushchinskii.ocolo.di.component.DaggerAppComponent
+import ru.aleksandrtrushchinskii.ocolo.common.di.component.DaggerAppComponent
 import javax.inject.Inject
 
 

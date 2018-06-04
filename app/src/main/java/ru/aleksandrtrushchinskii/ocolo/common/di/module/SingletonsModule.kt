@@ -1,4 +1,4 @@
-package ru.aleksandrtrushchinskii.ocolo.di.module
+package ru.aleksandrtrushchinskii.ocolo.common.di.module
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
