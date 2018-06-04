@@ -4,17 +4,32 @@ import android.arch.lifecycle.MutableLiveData
 
 
 object LoadingState {
-    val active by lazy {
+    val foregroundIndicator by lazy {
         MutableLiveData<Boolean>().apply {
             value = false
         }
     }
 
-    fun start() {
-        active.value = true
+    val backgroundIndicator by lazy {
+        MutableLiveData<Boolean>().apply {
+            value = false
+        }
     }
 
-    fun stop() {
-        active.value = false
+
+    fun startForeground() {
+        foregroundIndicator.value = true
+    }
+
+    fun stopForeground() {
+        foregroundIndicator.value = false
+    }
+
+    fun startBackground() {
+        backgroundIndicator.value = true
+    }
+
+    fun stopBackground() {
+        backgroundIndicator.value = false
     }
 }

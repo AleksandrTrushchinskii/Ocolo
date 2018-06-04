@@ -1,6 +1,6 @@
 package ru.aleksandrtrushchinskii.ocolo.ui
 
-import android.arch.lifecycle.Observer
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import dagger.android.support.DaggerAppCompatActivity
 import ru.aleksandrtrushchinskii.ocolo.R
@@ -16,8 +16,7 @@ import ru.aleksandrtrushchinskii.ocolo.ui.profile.ProfileFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.signin.SignInFragment
 import ru.aleksandrtrushchinskii.ocolo.common.service.LoadingState
 import ru.aleksandrtrushchinskii.ocolo.common.NEW_USER
-import ru.aleksandrtrushchinskii.ocolo.common.util.invisible
-import ru.aleksandrtrushchinskii.ocolo.common.util.visible
+import ru.aleksandrtrushchinskii.ocolo.databinding.MainActivityBinding
 import javax.inject.Inject
 
 
@@ -26,22 +25,23 @@ class MainActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var auth: Authentication
 
+    private lateinit var binding: MainActivityBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+
+        binding = DataBindingUtil.setContentView<MainActivityBinding>(this, R.layout.main_activity).apply {
+            loading = LoadingState
+            setLifecycleOwner(this@MainActivity)
+        }
+
         setSupportActionBar(toolbar)
 
-        LoadingState.active.observe(this, Observer {
-            if (it!!) {
-                fragment_container.invisible()
-                progressBar.visible()
-            } else {
-                fragment_container.visible()
-                progressBar.invisible()
-            }
-        })
+        init()
+    }
 
+    private fun init() {
         if (auth.isAuth) {
             checkProfileAndRunFragment()
         } else {

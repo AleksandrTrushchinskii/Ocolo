@@ -26,14 +26,6 @@ fun Fragment.finish() {
     (this.activity as MainActivity).finishFragment(this)
 }
 
-fun View.visible() {
-    this.visibility = View.VISIBLE
-}
-
-fun View.invisible() {
-    this.visibility = View.INVISIBLE
-}
-
 
 fun Any.logDebug(message: String) {
     Log.d(this::class.java.simpleName, message)
