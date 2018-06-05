@@ -1,9 +1,6 @@
 package ru.aleksandrtrushchinskii.ocolo.model
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
-import android.arch.persistence.room.TypeConverters
+import android.arch.persistence.room.*
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.ServerTimestamp
 import ru.aleksandrtrushchinskii.ocolo.model.data.cache.UserConverter
@@ -24,6 +21,8 @@ data class User(
         @ServerTimestamp
         var createdDate: Date? = null
 ) {
+
+    @Ignore constructor():this("")
 
     companion object {
         val EMPTY = User()

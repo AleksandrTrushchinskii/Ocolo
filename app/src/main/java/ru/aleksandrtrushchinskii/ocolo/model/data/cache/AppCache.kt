@@ -5,7 +5,7 @@ import android.arch.persistence.room.RoomDatabase
 import ru.aleksandrtrushchinskii.ocolo.model.User
 
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class], version = 1, exportSchema = false)
 abstract class AppCache : RoomDatabase() {
 
     abstract fun userDao(): UserDao

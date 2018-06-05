@@ -10,7 +10,6 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [AppModule::class])
-@Suppress("UNCHECKED_CAST")
 interface AppComponent {
 
     @Component.Builder

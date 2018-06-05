@@ -42,9 +42,11 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     private fun init() {
+        LoadingState.startForeground()
         if (auth.isAuth) {
             checkProfileAndRunFragment()
         } else {
+            LoadingState.stopForeground()
             startFragment(SignInFragment())
         }
     }
@@ -85,6 +87,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private fun checkProfileAndRunFragment() {
         auth.exist {
+            LoadingState.stopForeground()
             if (it) {
                 startFragment(MainFragment())
             } else {
