@@ -17,4 +17,8 @@
     <string name="create">Create</string>
     <string name="update">Update</string>
     <string name="saved">Saved</string>
+
+
+    <string name="meetup_title">Meetup\'s title</string>
+    <string name="choose_date">Choose date</string>
 </resources>
