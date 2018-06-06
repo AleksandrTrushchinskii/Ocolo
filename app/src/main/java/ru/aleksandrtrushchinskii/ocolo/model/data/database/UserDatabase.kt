@@ -10,13 +10,13 @@ import ru.aleksandrtrushchinskii.ocolo.model.User
 import javax.inject.Inject
 
 
-class UserDatabase @Inject constructor(db: FirebaseFirestore) {
+class UserDatabase @Inject constructor(firestore: FirebaseFirestore) {
 
-    private val users = db.collection("users")
+    private val db = firestore.collection("users")
 
 
     fun get(id: String): Single<User> = Single.create<User> { emitter ->
-        users.document(id).get().addOnSuccessListener {
+        db.document(id).get().addOnSuccessListener {
             val user = it.toObject(User::class.java) ?: User.EMPTY
             if (user != User.EMPTY) user.id = it.id
             emitter.success(user)
@@ -27,7 +27,7 @@ class UserDatabase @Inject constructor(db: FirebaseFirestore) {
     }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
     fun exist(id: String): Single<Boolean> = Single.create<Boolean> { emitter ->
-        users.document(id).get().addOnCompleteListener {
+        db.document(id).get().addOnCompleteListener {
             if (it.isSuccessful) {
                 if (it.result.exists()) {
                     emitter.success(true)
@@ -46,7 +46,7 @@ class UserDatabase @Inject constructor(db: FirebaseFirestore) {
     }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
     fun save(user: User): Completable = Completable.create { emitter ->
-        users.document(user.id).set(user).addOnSuccessListener {
+        db.document(user.id).set(user).addOnSuccessListener {
             emitter.complete()
         }.addOnFailureListener {
             emitter.error(it)

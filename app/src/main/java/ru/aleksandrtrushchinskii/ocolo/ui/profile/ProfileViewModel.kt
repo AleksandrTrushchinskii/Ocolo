@@ -9,11 +9,11 @@ import ru.aleksandrtrushchinskii.ocolo.common.service.LoadingState
 
 
 class ProfileViewModel constructor(private val auth: Authentication,
-                                   private val userRepository: UserRepository) : ViewModel() {
+                                   private val repository: UserRepository) : ViewModel() {
 
     val user = MutableLiveData<User>().apply {
         LoadingState.startForeground()
-        userRepository.get(auth.uid) {
+        repository.get(auth.uid) {
             if (it == User.EMPTY) {
                 postValue(User(id = auth.uid, email = auth.user.email!!))
             } else {
@@ -24,9 +24,10 @@ class ProfileViewModel constructor(private val auth: Authentication,
 
     }
 
+
     fun save(success: () -> Unit) {
         LoadingState.startBackground()
-        userRepository.save(user.value!!) {
+        repository.save(user.value!!) {
             LoadingState.stopBackground()
             success()
         }

@@ -6,6 +6,6 @@ import java.util.*
 
 
 data class Meetup(@get:Exclude var id: String = "",
-                  val userId: String = "",
-                  val title: String = "",
-                  val date: Date = EMPTY_DATE)
+                  var userId: String = "",
+                  var title: String = "",
+                  var date: Date = EMPTY_DATE)
