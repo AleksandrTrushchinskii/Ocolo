@@ -16,7 +16,7 @@ import ru.aleksandrtrushchinskii.ocolo.ui.support.picker.date.DatePickerFragment
 import javax.inject.Inject
 
 
-class CreateMeetupFragment: DaggerFragment() {
+class CreateMeetupFragment : DaggerFragment() {
 
     @Inject
     lateinit var factory: ViewModelFactory

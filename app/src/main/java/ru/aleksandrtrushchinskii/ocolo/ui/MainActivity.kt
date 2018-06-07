@@ -9,14 +9,17 @@ import android.view.Menu
 import android.view.MenuItem
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.main_activity.*
+import ru.aleksandrtrushchinskii.ocolo.common.KEY_CURRENT_FRAGMENT
 import ru.aleksandrtrushchinskii.ocolo.common.service.Authentication
 import ru.aleksandrtrushchinskii.ocolo.ui.cteatemeetup.CreateMeetupFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.main.MainFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.profile.ProfileFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.signin.SignInFragment
 import ru.aleksandrtrushchinskii.ocolo.common.service.LoadingState
-import ru.aleksandrtrushchinskii.ocolo.common.NEW_USER
+import ru.aleksandrtrushchinskii.ocolo.common.KEY_NEW_USER
+import ru.aleksandrtrushchinskii.ocolo.common.util.logDebug
 import ru.aleksandrtrushchinskii.ocolo.databinding.MainActivityBinding
+import java.lang.RuntimeException
 import javax.inject.Inject
 
 
@@ -26,6 +29,7 @@ class MainActivity : DaggerAppCompatActivity() {
     lateinit var auth: Authentication
 
     private lateinit var binding: MainActivityBinding
+    private lateinit var currentFragment: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,16 +42,23 @@ class MainActivity : DaggerAppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        init()
+        init(savedInstanceState)
     }
 
-    private fun init() {
-        LoadingState.startForeground()
-        if (auth.isAuth) {
-            checkProfileAndRunFragment()
+    private fun init(savedInstanceState: Bundle?) {
+        val previousFragmentClass = savedInstanceState?.getString(KEY_CURRENT_FRAGMENT)
+
+        if (previousFragmentClass != null) {
+            startFragmentByClassName(previousFragmentClass)
         } else {
-            LoadingState.stopForeground()
-            startFragment(SignInFragment())
+            LoadingState.startForeground()
+
+            if (auth.isAuth) {
+                checkProfileAndRunFragment()
+            } else {
+                LoadingState.stopForeground()
+                startFragment(SignInFragment())
+            }
         }
     }
 
@@ -70,16 +81,25 @@ class MainActivity : DaggerAppCompatActivity() {
         return true
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putString(KEY_CURRENT_FRAGMENT, currentFragment)
+    }
+
     fun finishFragment(fragment: Fragment) {
         when (fragment::class) {
             SignInFragment::class -> checkProfileAndRunFragment()
             ProfileFragment::class -> startFragment(MainFragment())
             MainFragment::class -> if (!auth.isAuth) startFragment(SignInFragment())
-            else -> println(fragment)
+
+            else -> throw RuntimeException("Unknown to do when fragment : ${fragment::class} was finish")
         }
     }
 
     private fun startFragment(fragment: Fragment) {
+        currentFragment = fragment::class.java.simpleName
+
         supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commitNow()
@@ -92,10 +112,19 @@ class MainActivity : DaggerAppCompatActivity() {
                 startFragment(MainFragment())
             } else {
                 val profileFragment = ProfileFragment()
-                profileFragment.arguments = Bundle().apply { putBoolean(NEW_USER, true) }
+                profileFragment.arguments = Bundle().apply { putBoolean(KEY_NEW_USER, true) }
                 startFragment(profileFragment)
             }
         }
     }
+
+    private fun startFragmentByClassName(className: String) = when (className) {
+        SignInFragment::class.java.simpleName -> startFragment(SignInFragment())
+        ProfileFragment::class.java.simpleName -> startFragment(ProfileFragment())
+        CreateMeetupFragment::class.java.simpleName -> startFragment(CreateMeetupFragment())
+
+        else -> logDebug("Unknown fragment to start : $className after recreating activity")
+    }
+
 
 }
