@@ -91,7 +91,7 @@ class MainActivity : DaggerAppCompatActivity() {
     fun finishFragment(fragment: Fragment) {
         when (fragment::class) {
             SignInFragment::class -> checkProfileAndRunFragment()
-            ProfileFragment::class -> startFragment(MainFragment())
+            in listOf(ProfileFragment::class, CreateMeetupFragment::class) -> startFragment(MainFragment())
             MainFragment::class -> if (!auth.isAuth) startFragment(SignInFragment())
 
             else -> throw RuntimeException("Unknown to do when fragment : ${fragment::class} was finish")
