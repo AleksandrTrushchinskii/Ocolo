@@ -41,7 +41,13 @@ class CreateMeetupFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         create_meetup_choose_date.setOnClickListener {
-            DatePickerFragment().show(fragmentManager, "datePicker")
+            val datePickerFragment = DatePickerFragment()
+
+            datePickerFragment.dateSetAction = {
+                vm.meetup.value = vm.meetup.value?.copy(date = it)
+            }
+
+            datePickerFragment.show(fragmentManager, "datePicker")
         }
 
         create_meetup.setOnClickListener {
