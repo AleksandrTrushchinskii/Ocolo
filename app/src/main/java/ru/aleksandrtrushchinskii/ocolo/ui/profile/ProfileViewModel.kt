@@ -13,15 +13,16 @@ class ProfileViewModel constructor(private val auth: Authentication,
 
     val user = MutableLiveData<User>().apply {
         LoadingState.startForeground()
+
         repository.get(auth.uid) {
             if (it == User.EMPTY) {
                 postValue(User(id = auth.uid, email = auth.user.email!!))
             } else {
                 postValue(it)
-                LoadingState.stopForeground()
             }
-        }
 
+            LoadingState.stopForeground()
+        }
     }
 
 

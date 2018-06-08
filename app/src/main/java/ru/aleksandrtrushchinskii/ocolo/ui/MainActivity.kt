@@ -57,6 +57,7 @@ class MainActivity : DaggerAppCompatActivity() {
                 checkProfileAndRunFragment()
             } else {
                 LoadingState.stopForeground()
+
                 startFragment(SignInFragment())
             }
         }
