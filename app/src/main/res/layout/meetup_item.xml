@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="meetup"
+            type="ru.aleksandrtrushchinskii.ocolo.model.Meetup" />
+
+        <variable
+            name="meetupAdapter"
+            type="ru.aleksandrtrushchinskii.ocolo.ui.support.adapter.MeetupAdapter" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="@{v -> meetupAdapter.itemClicked(v, meetup)}">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{meetup.title}" />
+
+    </LinearLayout>
+</layout>
