@@ -9,7 +9,7 @@ import ru.aleksandrtrushchinskii.ocolo.model.Meetup
 object MeetupAdapter: ViewModelAdapter() {
 
     init {
-        cell(Meetup::class.java, R.layout.meetup_item, BR.meetupItem)
+        cell(Meetup::class.java, R.layout.meetup_item, BR.meetup)
 
         sharedObject(this, BR.meetupAdapter)
     }
