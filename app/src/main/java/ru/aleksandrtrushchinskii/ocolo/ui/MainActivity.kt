@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.main_activity.*
 import ru.aleksandrtrushchinskii.ocolo.common.KEY_CURRENT_FRAGMENT
 import ru.aleksandrtrushchinskii.ocolo.common.service.Authentication
 import ru.aleksandrtrushchinskii.ocolo.ui.cteatemeetup.CreateMeetupFragment
-import ru.aleksandrtrushchinskii.ocolo.ui.main.MainFragment
+import ru.aleksandrtrushchinskii.ocolo.ui.meetupsline.MeetupsLineFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.profile.ProfileFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.signin.SignInFragment
 import ru.aleksandrtrushchinskii.ocolo.common.service.LoadingState
@@ -65,7 +65,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_main -> startFragment(MainFragment())
+            R.id.action_meetups_line -> startFragment(MeetupsLineFragment())
             R.id.action_create_meetup -> startFragment(CreateMeetupFragment())
             R.id.action_profile -> startFragment(ProfileFragment())
             R.id.action_sign_out -> AuthUI.getInstance().signOut(this).addOnCompleteListener {
@@ -91,8 +91,8 @@ class MainActivity : DaggerAppCompatActivity() {
     fun finishFragment(fragment: Fragment) {
         when (fragment::class) {
             SignInFragment::class -> checkProfileAndRunFragment()
-            in listOf(ProfileFragment::class, CreateMeetupFragment::class) -> startFragment(MainFragment())
-            MainFragment::class -> if (!auth.isAuth) startFragment(SignInFragment())
+            in listOf(ProfileFragment::class, CreateMeetupFragment::class) -> startFragment(MeetupsLineFragment())
+            MeetupsLineFragment::class -> if (!auth.isAuth) startFragment(SignInFragment())
 
             else -> throw RuntimeException("Unknown to do when fragment : ${fragment::class} was finish")
         }
@@ -110,7 +110,7 @@ class MainActivity : DaggerAppCompatActivity() {
         auth.exist {
             LoadingState.stopForeground()
             if (it) {
-                startFragment(MainFragment())
+                startFragment(MeetupsLineFragment())
             } else {
                 val profileFragment = ProfileFragment()
                 profileFragment.arguments = Bundle().apply { putBoolean(KEY_NEW_USER, true) }

@@ -1,4 +1,4 @@
-package ru.aleksandrtrushchinskii.ocolo.ui.main
+package ru.aleksandrtrushchinskii.ocolo.ui.meetupsline
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,20 +7,20 @@ import android.view.ViewGroup
 import dagger.android.support.DaggerFragment
 import ru.aleksandrtrushchinskii.ocolo.R
 import ru.aleksandrtrushchinskii.ocolo.common.util.inflateBinding
-import ru.aleksandrtrushchinskii.ocolo.databinding.MainFragmentBinding
+import ru.aleksandrtrushchinskii.ocolo.databinding.MeetupsLineFragmentBinding
 import ru.aleksandrtrushchinskii.ocolo.model.Meetup
 import ru.aleksandrtrushchinskii.ocolo.ui.support.adapter.MeetupAdapter
 
 
-class MainFragment : DaggerFragment() {
+class MeetupsLineFragment : DaggerFragment() {
 
-    private lateinit var binding: MainFragmentBinding
+    private lateinit var binding: MeetupsLineFragmentBinding
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         container ?: return null
 
-        binding = container.inflateBinding(R.layout.main_fragment)
+        binding = container.inflateBinding(R.layout.meetups_line_fragment)
         binding.meetupAdapter = MeetupAdapter
 
         MeetupAdapter.setData(listOf(

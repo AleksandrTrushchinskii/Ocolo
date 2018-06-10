@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_main"
+        android:id="@+id/action_meetups_line"
         android:icon="@mipmap/ic_view_list"
-        android:title="@string/main"
+        android:title="@string/meetups_line"
         app:showAsAction="ifRoom"/>
 
     <item

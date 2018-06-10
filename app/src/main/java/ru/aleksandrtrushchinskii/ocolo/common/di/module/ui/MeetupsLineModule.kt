@@ -4,4 +4,4 @@ import dagger.Module
 
 
 @Module
-class MainFragmentModule
+class MeetupsLineModule
