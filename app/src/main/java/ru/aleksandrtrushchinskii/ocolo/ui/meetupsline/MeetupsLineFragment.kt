@@ -1,5 +1,6 @@
 package ru.aleksandrtrushchinskii.ocolo.ui.meetupsline
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,32 +9,28 @@ import dagger.android.support.DaggerFragment
 import ru.aleksandrtrushchinskii.ocolo.R
 import ru.aleksandrtrushchinskii.ocolo.common.util.inflateBinding
 import ru.aleksandrtrushchinskii.ocolo.databinding.MeetupsLineFragmentBinding
-import ru.aleksandrtrushchinskii.ocolo.model.Meetup
+import ru.aleksandrtrushchinskii.ocolo.ui.support.ViewModelFactory
 import ru.aleksandrtrushchinskii.ocolo.ui.support.adapter.MeetupAdapter
+import javax.inject.Inject
 
 
 class MeetupsLineFragment : DaggerFragment() {
 
+    @Inject
+    lateinit var factory: ViewModelFactory
+
     private lateinit var binding: MeetupsLineFragmentBinding
+    private lateinit var vm: MeetupsLineViewModel
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         container ?: return null
 
         binding = container.inflateBinding(R.layout.meetups_line_fragment)
+        vm = ViewModelProviders.of(activity!!, factory).get(MeetupsLineViewModel::class.java)
         binding.meetupAdapter = MeetupAdapter
 
-        MeetupAdapter.setData(listOf(
-                Meetup(title = "1 Meetup"),
-                Meetup(title = "2 Meetup"),
-                Meetup(title = "3 Meetup"),
-                Meetup(title = "4 Meetup"),
-                Meetup(title = "5 Meetup"),
-                Meetup(title = "6 Meetup"),
-                Meetup(title = "7 Meetup"),
-                Meetup(title = "8 Meetup"),
-                Meetup(title = "9 Meetup")
-        ))
+        vm.get { MeetupAdapter.setData(it) }
 
         return binding.root
     }

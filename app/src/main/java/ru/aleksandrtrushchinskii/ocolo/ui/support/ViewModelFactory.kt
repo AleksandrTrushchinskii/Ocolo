@@ -19,7 +19,7 @@ class ViewModelFactory @Inject constructor(
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>) = when (modelClass) {
-        MeetupsLineViewModel::class.java -> MeetupsLineViewModel() as T
+        MeetupsLineViewModel::class.java -> MeetupsLineViewModel(meetupRepository) as T
         ProfileViewModel::class.java -> ProfileViewModel(auth, userRepository) as T
         CreateMeetupViewModel::class.java -> CreateMeetupViewModel(auth, meetupRepository) as T
         else -> throw RuntimeException("Unknown view model: $modelClass")
