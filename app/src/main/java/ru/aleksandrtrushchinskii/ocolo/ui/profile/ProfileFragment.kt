@@ -12,7 +12,7 @@ import ru.aleksandrtrushchinskii.ocolo.common.util.finish
 import ru.aleksandrtrushchinskii.ocolo.common.util.inflateBinding
 import ru.aleksandrtrushchinskii.ocolo.ui.support.ViewModelFactory
 import ru.aleksandrtrushchinskii.ocolo.databinding.ProfileFragmentBinding
-import ru.aleksandrtrushchinskii.ocolo.common.KEY_NEW_USER
+import ru.aleksandrtrushchinskii.ocolo.common.NEW_USER
 import javax.inject.Inject
 
 
@@ -30,7 +30,7 @@ class ProfileFragment : DaggerFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         container ?: return null
 
-        isUserNew = arguments?.getBoolean(KEY_NEW_USER) ?: false
+        isUserNew = arguments?.getBoolean(NEW_USER) ?: false
         vm = ViewModelProviders.of(activity!!, factory).get(ProfileViewModel::class.java)
 
         binding = container.inflateBinding(R.layout.profile_fragment)

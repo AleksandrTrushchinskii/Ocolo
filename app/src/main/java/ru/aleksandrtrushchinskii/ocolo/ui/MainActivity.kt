@@ -16,11 +16,11 @@ import ru.aleksandrtrushchinskii.ocolo.ui.meetupsline.MeetupsLineFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.profile.ProfileFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.signin.SignInFragment
 import ru.aleksandrtrushchinskii.ocolo.common.service.LoadingState
-import ru.aleksandrtrushchinskii.ocolo.common.KEY_NEW_USER
-import ru.aleksandrtrushchinskii.ocolo.common.util.logDebug
+import ru.aleksandrtrushchinskii.ocolo.common.NEW_USER
 import ru.aleksandrtrushchinskii.ocolo.databinding.MainActivityBinding
 import java.lang.RuntimeException
 import javax.inject.Inject
+import kotlin.reflect.KClass
 
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -46,10 +46,10 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     private fun init(savedInstanceState: Bundle?) {
-        val previousFragmentClass = savedInstanceState?.getString(KEY_CURRENT_FRAGMENT)
+        val previousFragmentClassName = savedInstanceState?.getString(KEY_CURRENT_FRAGMENT)
 
-        if (previousFragmentClass != null) {
-            startFragmentByClassName(previousFragmentClass)
+        if (previousFragmentClassName != null) {
+            startFragment(className = previousFragmentClassName)
         } else {
             LoadingState.startForeground()
 
@@ -58,18 +58,18 @@ class MainActivity : DaggerAppCompatActivity() {
             } else {
                 LoadingState.stopForeground()
 
-                startFragment(SignInFragment())
+                startFragment(SignInFragment::class)
             }
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_meetups_line -> startFragment(MeetupsLineFragment())
-            R.id.action_create_meetup -> startFragment(CreateMeetupFragment())
-            R.id.action_profile -> startFragment(ProfileFragment())
+            R.id.action_meetups_line -> startFragment(MeetupsLineFragment::class)
+            R.id.action_create_meetup -> startFragment(CreateMeetupFragment::class)
+            R.id.action_profile -> startFragment(ProfileFragment::class)
             R.id.action_sign_out -> AuthUI.getInstance().signOut(this).addOnCompleteListener {
-                startFragment(SignInFragment())
+                startFragment(SignInFragment::class)
             }
             else -> super.onOptionsItemSelected(item)
         }
@@ -91,41 +91,49 @@ class MainActivity : DaggerAppCompatActivity() {
     fun finishFragment(fragment: Fragment) {
         when (fragment::class) {
             SignInFragment::class -> checkProfileAndRunFragment()
-            in listOf(ProfileFragment::class, CreateMeetupFragment::class) -> startFragment(MeetupsLineFragment())
-            MeetupsLineFragment::class -> if (!auth.isAuth) startFragment(SignInFragment())
+            in listOf(ProfileFragment::class, CreateMeetupFragment::class) -> startFragment(MeetupsLineFragment::class)
+            MeetupsLineFragment::class -> if (!auth.isAuth) startFragment(SignInFragment::class)
 
             else -> throw RuntimeException("Unknown to do when fragment : ${fragment::class} was finish")
         }
-    }
-
-    private fun startFragment(fragment: Fragment) {
-        currentFragment = fragment::class.java.simpleName
-
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commitNow()
     }
 
     private fun checkProfileAndRunFragment() {
         auth.exist {
             LoadingState.stopForeground()
             if (it) {
-                startFragment(MeetupsLineFragment())
+                startFragment(MeetupsLineFragment::class)
             } else {
-                val profileFragment = ProfileFragment()
-                profileFragment.arguments = Bundle().apply { putBoolean(KEY_NEW_USER, true) }
-                startFragment(profileFragment)
+                startFragment(ProfileFragment::class, tag = NEW_USER)
             }
         }
     }
 
-    private fun startFragmentByClassName(className: String) = when (className) {
-        SignInFragment::class.java.simpleName -> startFragment(SignInFragment())
-        ProfileFragment::class.java.simpleName -> startFragment(ProfileFragment())
-        CreateMeetupFragment::class.java.simpleName -> startFragment(CreateMeetupFragment())
+    private fun startFragment(clazz: KClass<*> = Any::class,
+                              className: String = "",
+                              tag: String = "") {
 
-        else -> logDebug("Unknown fragment to start : $className after recreating activity")
+        val fragmentClassName = if (className == "") clazz.java.simpleName else className
+        val fragment: Fragment
+
+        when (fragmentClassName) {
+            CreateMeetupFragment::class.java.simpleName -> fragment = CreateMeetupFragment()
+            MeetupsLineFragment::class.java.simpleName -> fragment = MeetupsLineFragment()
+            ProfileFragment::class.java.simpleName -> {
+                fragment = ProfileFragment()
+                if (tag == NEW_USER) {
+                    fragment.arguments = Bundle().apply { putBoolean(NEW_USER, true) }
+                }
+            }
+            SignInFragment::class.java.simpleName -> fragment = SignInFragment()
+            else -> throw RuntimeException("Unknown fragment to start : $className after recreating activity")
+        }
+
+        currentFragment = fragmentClassName
+
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commitNow()
     }
-
 
 }
