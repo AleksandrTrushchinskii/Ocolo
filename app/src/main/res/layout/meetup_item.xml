@@ -9,7 +9,7 @@
 
         <variable
             name="meetupAdapter"
-            type="ru.aleksandrtrushchinskii.ocolo.ui.support.adapter.MeetupAdapter" />
+            type="ru.aleksandrtrushchinskii.ocolo.ui.tools.adapter.MeetupAdapter" />
     </data>
 
     <LinearLayout

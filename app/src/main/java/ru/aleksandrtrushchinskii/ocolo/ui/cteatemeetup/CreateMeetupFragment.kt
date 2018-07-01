@@ -11,8 +11,8 @@ import ru.aleksandrtrushchinskii.ocolo.R
 import ru.aleksandrtrushchinskii.ocolo.common.util.finish
 import ru.aleksandrtrushchinskii.ocolo.common.util.inflateBinding
 import ru.aleksandrtrushchinskii.ocolo.databinding.CreateMeetupFragmentBinding
-import ru.aleksandrtrushchinskii.ocolo.ui.support.ViewModelFactory
-import ru.aleksandrtrushchinskii.ocolo.ui.support.picker.date.DatePickerFragment
+import ru.aleksandrtrushchinskii.ocolo.ui.tools.ViewModelFactory
+import ru.aleksandrtrushchinskii.ocolo.ui.tools.picker.date.DatePickerFragment
 import javax.inject.Inject
 
 

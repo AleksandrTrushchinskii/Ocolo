@@ -1,5 +1,6 @@
 package ru.aleksandrtrushchinskii.ocolo.model.data.repository
 
+import kotlinx.coroutines.experimental.async
 import ru.aleksandrtrushchinskii.ocolo.model.Meetup
 import ru.aleksandrtrushchinskii.ocolo.model.data.database.MeetupDatabase
 import javax.inject.Inject
@@ -13,10 +14,9 @@ class MeetupRepository @Inject constructor(private val db: MeetupDatabase) {
         }
     }
 
-    fun get(complete: (List<Meetup>) -> Unit) {
-        db.get().subscribe { meetups ->
-            complete(meetups)
-        }
+    fun load() = async {
+        println("${Thread.currentThread().name} : MeetupRepository.load()")
+        db.load()
     }
 
 }

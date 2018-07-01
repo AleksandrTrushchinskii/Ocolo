@@ -1,4 +1,4 @@
-package ru.aleksandrtrushchinskii.ocolo.ui.support.picker.date
+package ru.aleksandrtrushchinskii.ocolo.ui.tools.picker.date
 
 import android.app.DatePickerDialog
 import android.app.Dialog

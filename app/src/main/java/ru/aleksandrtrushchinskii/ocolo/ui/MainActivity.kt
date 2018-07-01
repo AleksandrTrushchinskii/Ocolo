@@ -2,22 +2,22 @@ package ru.aleksandrtrushchinskii.ocolo.ui
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import dagger.android.support.DaggerAppCompatActivity
-import ru.aleksandrtrushchinskii.ocolo.R
 import android.support.v4.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
 import com.firebase.ui.auth.AuthUI
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.main_activity.*
+import ru.aleksandrtrushchinskii.ocolo.R
 import ru.aleksandrtrushchinskii.ocolo.common.KEY_CURRENT_FRAGMENT
+import ru.aleksandrtrushchinskii.ocolo.common.NEW_USER
 import ru.aleksandrtrushchinskii.ocolo.common.service.Authentication
+import ru.aleksandrtrushchinskii.ocolo.common.service.LoadingState
+import ru.aleksandrtrushchinskii.ocolo.databinding.MainActivityBinding
 import ru.aleksandrtrushchinskii.ocolo.ui.cteatemeetup.CreateMeetupFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.meetupsline.MeetupsLineFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.profile.ProfileFragment
 import ru.aleksandrtrushchinskii.ocolo.ui.signin.SignInFragment
-import ru.aleksandrtrushchinskii.ocolo.common.service.LoadingState
-import ru.aleksandrtrushchinskii.ocolo.common.NEW_USER
-import ru.aleksandrtrushchinskii.ocolo.databinding.MainActivityBinding
 import java.lang.RuntimeException
 import javax.inject.Inject
 import kotlin.reflect.KClass
@@ -42,10 +42,6 @@ class MainActivity : DaggerAppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        init(savedInstanceState)
-    }
-
-    private fun init(savedInstanceState: Bundle?) {
         val previousFragmentClassName = savedInstanceState?.getString(KEY_CURRENT_FRAGMENT)
 
         if (previousFragmentClassName != null) {

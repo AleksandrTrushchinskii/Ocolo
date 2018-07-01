@@ -1,4 +1,4 @@
-package ru.aleksandrtrushchinskii.ocolo.ui.support.adapter
+package ru.aleksandrtrushchinskii.ocolo.ui.tools.adapter
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding

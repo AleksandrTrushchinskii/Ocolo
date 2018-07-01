@@ -2,14 +2,14 @@ package ru.aleksandrtrushchinskii.ocolo.model.data.database
 
 import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Completable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.experimental.launch
 import ru.aleksandrtrushchinskii.ocolo.common.util.complete
 import ru.aleksandrtrushchinskii.ocolo.common.util.error
-import ru.aleksandrtrushchinskii.ocolo.common.util.success
 import ru.aleksandrtrushchinskii.ocolo.model.Meetup
 import javax.inject.Inject
+import kotlin.coroutines.experimental.suspendCoroutine
 
 
 class MeetupDatabase @Inject constructor(firestore: FirebaseFirestore) {
@@ -25,27 +25,23 @@ class MeetupDatabase @Inject constructor(firestore: FirebaseFirestore) {
         }
     }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
-    fun get(limit: Long = 10, orderedBy: String = "createdDate"): Single<List<Meetup>> {
-        return Single.create<List<Meetup>> { emitter ->
-            db.orderBy(orderedBy).limit(limit).get().addOnCompleteListener {
+    suspend fun load(): List<Meetup> = suspendCoroutine { continuation ->
+        db.get().addOnCompleteListener {
+            launch {
                 if (it.isSuccessful) {
-                    val meetups = ArrayList<Meetup>()
+                    val meetups = arrayListOf<Meetup>()
 
-                    for (document in it.result) {
-                        val meetup = document.toObject(Meetup::class.java)
-                        meetup.id = document.id
-                        meetups.add(meetup)
+                    it.result.forEach { document ->
+                        meetups.add(
+                                document.toObject(Meetup::class.java).apply { id = document.id }
+                        )
                     }
 
-                    emitter.success(meetups)
-                } else {
-                    if (it.exception != null) {
-                        emitter.error(it.exception!!)
-                    }
+                    continuation.resume(meetups)
                 }
-
             }
-        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        }
+
     }
 
 }

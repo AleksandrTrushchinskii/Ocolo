@@ -9,8 +9,8 @@ import dagger.android.support.DaggerFragment
 import ru.aleksandrtrushchinskii.ocolo.R
 import ru.aleksandrtrushchinskii.ocolo.common.util.inflateBinding
 import ru.aleksandrtrushchinskii.ocolo.databinding.MeetupsLineFragmentBinding
-import ru.aleksandrtrushchinskii.ocolo.ui.support.ViewModelFactory
-import ru.aleksandrtrushchinskii.ocolo.ui.support.adapter.MeetupAdapter
+import ru.aleksandrtrushchinskii.ocolo.ui.tools.ViewModelFactory
+import ru.aleksandrtrushchinskii.ocolo.ui.tools.adapter.MeetupAdapter
 import javax.inject.Inject
 
 
@@ -30,7 +30,7 @@ class MeetupsLineFragment : DaggerFragment() {
         vm = ViewModelProviders.of(activity!!, factory).get(MeetupsLineViewModel::class.java)
         binding.meetupAdapter = MeetupAdapter
 
-        vm.get { MeetupAdapter.setData(it) }
+        vm.load()
 
         return binding.root
     }
