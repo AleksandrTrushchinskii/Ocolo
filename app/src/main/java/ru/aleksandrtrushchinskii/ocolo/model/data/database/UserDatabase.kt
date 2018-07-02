@@ -5,7 +5,10 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.aleksandrtrushchinskii.ocolo.common.util.*
+import ru.aleksandrtrushchinskii.ocolo.common.util.complete
+import ru.aleksandrtrushchinskii.ocolo.common.util.error
+import ru.aleksandrtrushchinskii.ocolo.common.util.logError
+import ru.aleksandrtrushchinskii.ocolo.common.util.success
 import ru.aleksandrtrushchinskii.ocolo.model.User
 import javax.inject.Inject
 

@@ -8,14 +8,11 @@ import javax.inject.Inject
 
 class MeetupRepository @Inject constructor(private val db: MeetupDatabase) {
 
-    fun create(meetup: Meetup, complete: () -> Unit = {}) {
-        db.create(meetup).subscribe {
-            complete()
-        }
+    fun create(meetup: Meetup) = async {
+        db.create(meetup)
     }
 
     fun load() = async {
-        println("${Thread.currentThread().name} : MeetupRepository.load()")
         db.load()
     }
 

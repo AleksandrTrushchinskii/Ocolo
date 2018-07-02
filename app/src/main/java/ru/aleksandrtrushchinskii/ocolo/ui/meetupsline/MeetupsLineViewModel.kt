@@ -11,12 +11,10 @@ import ru.aleksandrtrushchinskii.ocolo.ui.tools.adapter.MeetupAdapter
 class MeetupsLineViewModel(private val repository: MeetupRepository) : ViewModel() {
 
     fun load() {
-        println("${Thread.currentThread().name} : MeetupsLineViewModel.load()")
         launch(UI) {
             LoadingState.startForeground()
 
             val meetups = repository.load().await()
-            println("${Thread.currentThread().name} : MeetupsLineViewModel.load() data is ${meetups}")
             MeetupAdapter.setData(meetups)
 
             LoadingState.stopForeground()
